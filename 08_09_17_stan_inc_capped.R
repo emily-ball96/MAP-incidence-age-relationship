@@ -79,16 +79,16 @@ names(params_fit) <- gsub("[", ".", names(params_fit), fixed = TRUE)
 names(params_fit) <- gsub("]", "", names(params_fit), fixed = TRUE)
 params_fit$iter <- 1:10000
 par(mar = c(4,4,0.5,0.5))
-plot(params_fit$iter, params_fit$nu, col = "black", pch = 20, cex = 0.8,       ## plot gamma sampling
-     xlab = "Iteration", ylab = "nu", ylim=c(5,8))
+plot(params_fit$iter, params_fit$nu, col = "black", pch = 20, cex = 0.8,       ## plot nu sampling
+     xlab = "Iteration", ylab = "nu")
 ####
 div_params_fit <- params_fit[params_fit$divergent == 1,]                       ## get divergent transitions
 nondiv_params_fit <- params_fit[params_fit$divergent == 0,]                    ## get non divergent transitions
-plot(nondiv_params_fit$mu.1,nondiv_params_fit$nu,
+plot(nondiv_params_fit$kappa,nondiv_params_fit$nu,
      col = "#8F2727", pch = 20,
-     xlab = "mu.1", ylab = "nu"
+     xlab = "kappa", ylab = "nu"
 )
-points(div_params_fit$mu.1, div_params_fit$nu,
+points(div_params_fit$kappa, div_params_fit$nu,
        col="green", pch=20, cex=0.8)
 ####
 running_means_fit <- sapply(params_fit$iter, function(n) mean(params_fit$nu[1:n]))
