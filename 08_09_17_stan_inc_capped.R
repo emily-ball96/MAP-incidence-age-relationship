@@ -44,7 +44,7 @@ fit <- stan(
   iter = 11000,                                           # total number of iterations per chain
   cores = 4,                                              # number of cores
   refresh = 500,                                          # show progress every 'refresh' iterations
-  control = list(adapt_delta = 0.8, max_treedepth = 15),  # avoid divergent transitions
+  control = list(adapt_delta = 0.85, max_treedepth = 13),  # avoid divergent transitions
   init = init
 )
 
@@ -84,11 +84,11 @@ plot(params_fit$iter, params_fit$nu, col = "black", pch = 20, cex = 0.8,       #
 ####
 div_params_fit <- params_fit[params_fit$divergent == 1,]                       ## get divergent transitions
 nondiv_params_fit <- params_fit[params_fit$divergent == 0,]                    ## get non divergent transitions
-plot(nondiv_params_fit$kappa,nondiv_params_fit$nu,
+plot(nondiv_params_fit$mu.1,nondiv_params_fit$nu,
      col = "#8F2727", pch = 20,
-     xlab = "kappa", ylab = "nu"
+     xlab = "mu[1]", ylab = "nu"
 )
-points(div_params_fit$kappa, div_params_fit$nu,
+points(div_params_fit$mu.1, div_params_fit$nu,
        col="green", pch=20, cex=0.8)
 ####
 running_means_fit <- sapply(params_fit$iter, function(n) mean(params_fit$nu[1:n]))
